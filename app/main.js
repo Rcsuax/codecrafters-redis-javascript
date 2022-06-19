@@ -3,7 +3,7 @@ const net = require("net");
 // You can use print statements as follows for debugging, they'll be visible when running tests.
 console.log("Logs from your program will appear here!");
 
-const RedisStore = new Map()
+const store = new Map()
 
 // Uncomment this block to pass the first stage
 const server = net.createServer(socket => {
@@ -27,11 +27,11 @@ const server = net.createServer(socket => {
       case 'set':
         console.log(`${op} = K: ${key} V: ${value}`)
         
-        RedisStore.set(key, value)
+        store.set(key, value)
         socket.write('+OK')
         break;
       case 'get':
-        let out = RedisStore.get(key)
+        let out = store.get(key)
         socket.write(`+${out}`)
         break;
     }
