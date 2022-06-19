@@ -5,7 +5,12 @@ console.log("Logs from your program will appear here!");
 
 // Uncomment this block to pass the first stage
 const server = net.createServer(socket => {
+  console.log(socket)
   socket.pipe(socket);
 });
 
 server.listen(6379, '127.0.0.1');
+
+function encodeRESP(str) {
+  return `+${str}`
+}
