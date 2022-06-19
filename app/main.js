@@ -17,6 +17,8 @@ const server = net.createServer(socket => {
     const key = array[4]
     const value = array[6]
     const ttl = array[8]
+
+    console.log(`TTL VALUE: ${ttl}`)
     
     switch(op) {
       case 'ping':
@@ -34,7 +36,7 @@ const server = net.createServer(socket => {
       case 'get':
         const out = store.get(key)
 
-        console.log( out.ttl)
+        console.log( out.ttl )
         console.log( new Date().getTime() )
         console.log( out.ttl - new Date().getTime() )
 
