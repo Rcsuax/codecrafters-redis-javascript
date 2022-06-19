@@ -7,7 +7,13 @@ console.log("Logs from your program will appear here!");
 const server = net.createServer(socket => {
   
   socket.on('data', data => {   
-    socket.write('+PONG\r\n')
+    
+    const input = data.toString()
+    const array = input.split('\r\n')
+
+    console.log(array)
+    
+    // socket.write('+PONG\r\n')
   })
 
   socket.on('end', socket.end)
