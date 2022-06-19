@@ -16,6 +16,7 @@ const server = net.createServer(socket => {
     const op = array[2] // [ '*2', '$4', 'echo', '$6', 'apples', '' ]
     const key = array[4]
     const value = array[6]
+    const ttl = array[8]
     
     switch(op) {
       case 'ping':
@@ -26,13 +27,20 @@ const server = net.createServer(socket => {
         break;
       case 'set':
         console.log(`${op} = K: ${key} V: ${value}`)
+
+        let time = ttl != undefined ? (new Date().getTime() + ttl) : null
         
-        store.set(key, value)
+        store.set(key, { value: value, ttl: time })
         socket.write('+OK')
         break;
       case 'get':
         let out = store.get(key)
-        socket.write(`+${out}`)
+        if ( out.ttl - new Date().getTime() > 0 ) {
+          socket.write(`+null`)
+        }
+        else {
+          socket.write(`+${out}`)
+        }
         break;
     }
 
