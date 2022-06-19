@@ -37,7 +37,7 @@ const server = net.createServer(socket => {
         const expireTime = result.ttl
 
 
-        console.log(`${ currentTime } \n ${ expireTime } ${ result.ttl }`)
+        console.log(`current: ${ currentTime } expired: ${ expireTime } ttl: ${ result.ttl }`)
         // if currentTime < expireTime === has not expired return value
         // if currentTime > expireTime === has expired     return null
 
