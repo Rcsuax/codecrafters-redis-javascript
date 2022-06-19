@@ -32,9 +32,10 @@ const server = net.createServer(socket => {
       case 'get':
         const result = store.get(key)
         const currentTime = new Date().getTime()
-        const expireTime = result.ttl
+        const expireTime = result.timestamp
 
-        console.log(`timestamp: ${ result.timestamp }`)
+        // console.log(`timestamp: ${ result.timestamp }`)
+        // console.log(`timestamp: ${ ex }`)
         // if currentTime < expireTime === has not expired return value
         // if currentTime > expireTime === has expired     return null
 
