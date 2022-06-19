@@ -39,7 +39,7 @@ const server = net.createServer(socket => {
           socket.write(`+null`)
         }
         else {
-          socket.write(`+${out}`)
+          socket.write(`+${out.value}`)
         }
         break;
     }
