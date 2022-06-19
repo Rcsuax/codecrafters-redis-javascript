@@ -33,6 +33,12 @@ const server = net.createServer(socket => {
         break;
       case 'get':
         const out = store.get(key)
+
+        console.log( out.ttl)
+        console.log( new Date().getTime() )
+        console.log( out.ttl - new Date().getTime() )
+
+
         if ( out.ttl - new Date().getTime() > 0 ) {
           socket.write(`$-1\r\n`) // Null Bulk String.
         }
