@@ -4,8 +4,6 @@ const net = require("net");
 console.log("Logs from your program will appear here!");
 
 const store = new Map()
-
-// Uncomment this block to pass the first stage 1
 const server = net.createServer(socket => {
   
   socket.on('data', data => {   
@@ -13,14 +11,14 @@ const server = net.createServer(socket => {
     const input = data.toString()
     const array = input.split('\r\n')
     
-    const op = array[2] // [ '*2', '$4', 'echo', '$6', 'apples', '' ]
+    const command = array[2] // [ '*2', '$4', 'echo', '$6', 'apples', '' ]
     const key = array[4]
     const value = array[6]
     const ttl = parseInt(array[10])
     
-    const time = ttl !== undefined ? (new Date().getTime() + ttl) : null
+    const timestamp = ttl !== undefined ? (new Date().getTime() + ttl) : null // set timestamp if ttl
 
-    switch(op) {
+    switch(command) {
       case 'ping':
         socket.write('+PONG\r\n')
         break;
@@ -28,7 +26,7 @@ const server = net.createServer(socket => {
         socket.write(`+${array[4]}\r\n`)
         break;
       case 'set':        
-        store.set(key, { value: value, ttl: time })
+        store.set(key, { value: value, timestamp: timestamp })
         socket.write('+OK')
         break;
       case 'get':
@@ -36,12 +34,11 @@ const server = net.createServer(socket => {
         const currentTime = new Date().getTime()
         const expireTime = result.ttl
 
-
-        console.log(`current: ${ currentTime } expired: ${ expireTime } ttl: ${ result.ttl }`)
+        console.log(`timestamp: ${ result.timestamp }`)
         // if currentTime < expireTime === has not expired return value
         // if currentTime > expireTime === has expired     return null
 
-        if ( result.ttl ) {
+        if ( result.timestamp ) {
 
           if ( currentTime < expireTime ) {
             console.log(`EXPIRED`)
@@ -51,7 +48,7 @@ const server = net.createServer(socket => {
             console.log(`AVAILBLE`)
             socket.write(`+${result.value}`)
           }
-          
+
         }
         else {
           console.log(`NO TTL`)
