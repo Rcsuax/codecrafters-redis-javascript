@@ -33,16 +33,20 @@ const server = net.createServer(socket => {
         socket.write('+OK')
         break;
       case 'get':
-        const out = store.get(key)
-        const currentTime = new Date()
-        const expireTime = new Date(out.ttl)
+        const result = store.get(key)
+        
+        if ( result.ttl) {
+          const currentTime = new Date()
+          const expireTime = new Date(result.ttl) 
 
-        if ( currentTime < expireTime ) {
-          socket.write(`$-1\r\n`) // Null Bulk String.
+          if ( currentTime < expireTime ) {
+            socket.write(`$-1\r\n`) // Null Bulk String.
+          }
         }
         else {
-          socket.write(`+${out.value}`)
+          socket.write(`+${result.value}`)
         }
+
         break;
     }
 
