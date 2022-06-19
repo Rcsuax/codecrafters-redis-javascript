@@ -7,7 +7,12 @@ console.log("Logs from your program will appear here!");
 const server = net.createServer(socket => {
   socket.on('data', data => {
     console.log('DATA RECEIVED')
-    console.log(data.toString())
+    const input = data.toString()
+    
+    if (input === 'ping') {
+      console.log(input)  
+    }
+    
   })
   socket.pipe(socket);
 });
