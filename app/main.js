@@ -10,7 +10,8 @@ const server = net.createServer(socket => {
     const input = data.toString()
     
     if (input === 'ping') {
-      console.log(input)  
+      console.log(input)
+      socket.write('+PONG')
     }
     
   })
