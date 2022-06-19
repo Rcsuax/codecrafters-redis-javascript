@@ -42,12 +42,12 @@ const server = net.createServer(socket => {
           console.log(`currentTime - expireTime : ${currentTime - expireTime}`)
 
           if ( currentTime < expireTime ) {
-            console.log(`EXPIRED`)
-            socket.write(`$-1\r\n`) // Null Bulk String. 
-          }
-          else {
             console.log(`AVAILBLE`)
             socket.write(`+${result.value}`)
+          }
+          else {
+            console.log(`EXPIRED`)
+            socket.write(`$-1\r\n`) // Null Bulk String. 
           }
 
         }
