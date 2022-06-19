@@ -18,7 +18,7 @@ const server = net.createServer(socket => {
     const value = array[6]
     const ttl = array[8]
 
-    console.log(`TTL VALUE: ${ttl}`)
+    console.log(`ARRAY: ${array} , TTL VALUE: ${ttl}`)
     
     switch(op) {
       case 'ping':
