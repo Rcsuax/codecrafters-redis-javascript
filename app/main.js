@@ -18,6 +18,8 @@ const server = net.createServer(socket => {
     const value = array[6]
     const ttl = parseInt(array[10])
     
+    const time = ttl !== undefined ? (new Date().getTime() + ttl) : null
+
     switch(op) {
       case 'ping':
         socket.write('+PONG\r\n')
@@ -25,28 +27,23 @@ const server = net.createServer(socket => {
       case 'echo':
         socket.write(`+${array[4]}\r\n`)
         break;
-      case 'set':
-        const time = ttl != undefined ? (new Date().getTime() + ttl) : null
-        console.log(`setting time: ${time}`)
-        
+      case 'set':        
         store.set(key, { value: value, ttl: time })
         socket.write('+OK')
         break;
       case 'get':
         const result = store.get(key)
-        
-        if ( result.ttl) {
-          const currentTime = new Date()
-          const expireTime = new Date(result.ttl) 
+        const currentTime = new Date()
+        const expireTime = new Date(result.ttl) 
 
-          if ( currentTime < expireTime ) {
-            socket.write(`$-1\r\n`) // Null Bulk String.
-          }
-        }
-        else {
+        // if currentTime < expireTime === has not expired return value
+        // if currentTime > expireTime === has expired     return null
+        if ( currentTime < expireTime ) {
           socket.write(`+${result.value}`)
         }
-
+        else {
+          socket.write(`$-1\r\n`) // Null Bulk String. 
+        }
         break;
     }
 
