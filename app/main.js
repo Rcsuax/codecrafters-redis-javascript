@@ -13,7 +13,7 @@ const server = net.createServer(socket => {
 
     console.log(array)
     
-    // socket.write('+PONG\r\n')
+    socket.write('+PONG\r\n')
   })
 
   socket.on('end', socket.end)
