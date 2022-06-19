@@ -9,10 +9,10 @@ const server = net.createServer(socket => {
     const input = data.toString()
     console.log(input)
     
-    if ( input.toLocaleLowerCase().contains('ping')  ){
+    if ( input.toLocaleLowerCase() === 'ping'  ){
       socket.write('+PONG\r\n')
     }
-    
+
   })
   socket.pipe(socket);
 });
