@@ -7,6 +7,8 @@ console.log("Logs from your program will appear here!");
 const server = net.createServer(socket => {
   socket.on('data', data => {
     console.log('DATA RECEIVED')    
+    const input = data.toString()
+    console.log(input)
     
     socket.write('+PONG\r\n')
   })
