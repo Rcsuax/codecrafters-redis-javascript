@@ -10,10 +10,15 @@ const server = net.createServer(socket => {
     
     const input = data.toString()
     const array = input.split('\r\n')
-
-    console.log(array)
+    const op = array[2] // [ '*2', '$4', 'echo', '$6', 'apples', '' ]
     
-    socket.write('+PONG\r\n')
+    if ( op === 'ping' ) {
+      socket.write('+PONG\r\n')
+    }
+    else if (op === 'echo' ) {
+      socket.write(`+${array[4]}\r\n`)
+    }
+
   })
 
   socket.on('end', socket.end)
