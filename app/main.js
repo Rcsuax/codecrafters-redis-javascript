@@ -34,13 +34,10 @@ const server = net.createServer(socket => {
         break;
       case 'get':
         const out = store.get(key)
-        console.log(out)
-        const currentTime = new Date().getTime()
+        const currentTime = new Date()
+        const expireTime = new Date(out.ttl)
 
-        console.log(`getting current time: ${currentTime} vs ${out.ttl}`)
-
-        if ( new Date() < new Date(out.ttl + 10000) ) {
-          console.log(" TOO EARLY ")
+        if ( currentTime < expireTime ) {
           socket.write(`$-1\r\n`) // Null Bulk String.
         }
         else {
