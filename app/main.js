@@ -14,7 +14,7 @@ const server = net.createServer(socket => {
     const command = array[2] // [ '*2', '$4', 'echo', '$6', 'apples', '' ]
     const key = array[4]
     const value = array[6]
-    const ttl = parseInt(array[10]) + 10000
+    const ttl = parseInt(array[10])
     
     const timestamp = ttl !== undefined ? (new Date().getTime() + ttl) : null // set timestamp if ttl
 
