@@ -26,17 +26,15 @@ const server = net.createServer(socket => {
         socket.write(`+${array[4]}\r\n`)
         break;
       case 'set':
-        console.log(`${op} = K: ${key} V: ${value}`)
-
-        let time = ttl != undefined ? (new Date().getTime() + ttl) : null
+        const time = ttl != undefined ? (new Date().getTime() + ttl) : null
         
         store.set(key, { value: value, ttl: time })
         socket.write('+OK')
         break;
       case 'get':
-        let out = store.get(key)
+        const out = store.get(key)
         if ( out.ttl - new Date().getTime() > 0 ) {
-          socket.write(`+null`)
+          socket.write(`$-1\r\n`) // Null Bulk String.
         }
         else {
           socket.write(`+${out.value}`)
