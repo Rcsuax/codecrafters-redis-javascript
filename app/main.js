@@ -12,11 +12,13 @@ const server = net.createServer(socket => {
     const array = input.split('\r\n')
     const op = array[2] // [ '*2', '$4', 'echo', '$6', 'apples', '' ]
     
-    if ( op === 'ping' ) {
-      socket.write('+PONG\r\n')
-    }
-    else if (op === 'echo' ) {
-      socket.write(`+${array[4]}\r\n`)
+    switch(op) {
+      case 'ping':
+        socket.write('+PONG\r\n')
+        break;
+      case 'echo':
+        socket.write(`+${array[4]}\r\n`)
+        break;
     }
 
   })
