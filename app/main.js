@@ -51,7 +51,7 @@ const server = net.createServer(socket => {
           }
           else {
             console.log(`EXPIRED`)
-            socket.write(`$-1\r\n`) // Null Bulk String. 
+            socket.write(`+$-1\r\n`) // Null Bulk String. 
           }
         }
         else {
