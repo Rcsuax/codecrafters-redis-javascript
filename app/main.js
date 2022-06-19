@@ -8,4 +8,9 @@ const server = net.createServer(socket => {
   socket.pipe(socket);
 });
 
+server.on('connection', socket => {
+  console.log("CONNECTION MADE")
+  console.log(socket.bytesRead())
+})
+
 server.listen(6379, '127.0.0.1');
