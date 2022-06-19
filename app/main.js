@@ -19,6 +19,9 @@ const server = net.createServer(socket => {
       case 'echo':
         socket.write(`+${array[4]}\r\n`)
         break;
+      case 'set':
+        console.log(`${array}`)
+        break;
     }
 
   })
