@@ -39,7 +39,7 @@ const server = net.createServer(socket => {
 
         console.log(`getting current time: ${currentTime} vs ${out.ttl}`)
 
-        if ( new Date() < new Date(out.ttl) ) {
+        if ( new Date() < new Date(out.ttl + 10000) ) {
           console.log(" TOO EARLY ")
           socket.write(`$-1\r\n`) // Null Bulk String.
         }
