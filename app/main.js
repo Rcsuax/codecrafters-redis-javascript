@@ -27,6 +27,7 @@ const server = net.createServer(socket => {
         break;
       case 'set':
         const time = ttl != undefined ? (new Date().getTime() + ttl) : null
+        console.log(`setting time: ${time}`)
         
         store.set(key, { value: value, ttl: time })
         socket.write('+OK')
