@@ -21,6 +21,9 @@ const server = net.createServer(socket => {
         break;
       case 'set':
         console.log(`${array}`)
+        let key = array[4]
+        let value = array[6]
+        console.log(`${op} = K: ${key} V: ${value}`)
         break;
     }
 
