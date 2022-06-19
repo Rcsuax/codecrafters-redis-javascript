@@ -5,12 +5,14 @@ console.log("Logs from your program will appear here!");
 
 // Uncomment this block to pass the first stage
 const server = net.createServer(socket => {
-  socket.on('data', data => {
-    console.log('DATA RECEIVED')    
+  socket.on('data', data => {   
     const input = data.toString()
     console.log(input)
     
-    socket.write('+PONG\r\n')
+    if ( input.toLocaleLowerCase().contains('ping')  ){
+      socket.write('+PONG\r\n')
+    }
+    
   })
   socket.pipe(socket);
 });
