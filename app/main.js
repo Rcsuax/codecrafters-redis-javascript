@@ -16,7 +16,7 @@ const server = net.createServer(socket => {
     const op = array[2] // [ '*2', '$4', 'echo', '$6', 'apples', '' ]
     const key = array[4]
     const value = array[6]
-    const ttl = array[10]
+    const ttl = parseInt(array[10])
     
     switch(op) {
       case 'ping':
