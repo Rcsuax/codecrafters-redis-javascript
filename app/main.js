@@ -20,10 +20,10 @@ const server = net.createServer(socket => {
         socket.write(`+${array[4]}\r\n`)
         break;
       case 'set':
-        console.log(`${array}`)
         let key = array[4]
         let value = array[6]
         console.log(`${op} = K: ${key} V: ${value}`)
+        socket.write('+OK')
         break;
     }
 
