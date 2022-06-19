@@ -5,7 +5,7 @@ console.log("Logs from your program will appear here!");
 
 const store = new Map()
 
-// Uncomment this block to pass the first stage
+// Uncomment this block to pass the first stage 1
 const server = net.createServer(socket => {
   
   socket.on('data', data => {   
