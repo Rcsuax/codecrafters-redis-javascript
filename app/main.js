@@ -39,6 +39,7 @@ const server = net.createServer(socket => {
         // if currentTime > expireTime === has expired     return null
 
         if ( result.timestamp ) {
+          console.log(`currentTime < expireTime : ${currentTime < expireTime}`)
 
           if ( currentTime < expireTime ) {
             console.log(`EXPIRED`)
