@@ -23,7 +23,7 @@ const server = net.createServer(socket => {
         break;
       case 'set':        
         store.set(key, { value: value, timestamp: timestamp })
-        socket.write('+OK')
+        socket.write('+OK\r\n')
         break;
       case 'get':
         const result = store.get(key)
@@ -36,7 +36,7 @@ const server = net.createServer(socket => {
 
           if ( currentTime < expireTime ) {
             console.log(`AVAILBLE`)
-            socket.write(`+${result.value}`)
+            socket.write(`+${result.value}\r\n`)
           }
           else {
             console.log(`EXPIRED`)
@@ -46,7 +46,7 @@ const server = net.createServer(socket => {
         }
         else {
           console.log(`NO TTL`)
-          socket.write(`+${result.value}`)
+          socket.write(`+${result.value}\r\n`)
         }
 
         break;
